@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fruit.email.mapper.LogMapper">
+    <!--  邮件推送日志 -->
+    <resultMap id="BaseResultMap" type="com.fruit.email.dto.LogDto">
+        <!-- 字段: [消息唯一标识] -->
+        <result column="msg_id" property="msg_id"/>
+        <!-- 字段: [消息体, json格式化] -->
+        <result column="msg" property="msg"/>
+        <!-- 字段: [交换机] -->
+        <result column="exchange" property="exchange"/>
+        <!-- 字段: [路由键] -->
+        <result column="routing_key" property="routing_key"/>
+        <!-- 字段: [状态: 0投递中 1投递成功 2投递失败 3已消费] -->
+        <result column="status" property="status"/>
+        <!-- 字段: [重试次数] -->
+        <result column="try_count" property="try_count"/>
+        <!-- 字段: [下一次重试时间] -->
+        <result column="next_try_time" property="next_try_time"/>
+        <!-- 字段: [创建时间] -->
+        <result column="create_time" property="create_time"/>
+        <!-- 字段: [更新时间] -->
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <!-- msg_log table all fields -->
+    <sql id="Base_Column_List">
+        msg_id,msg,exchange,routing_key,status,try_count,next_try_time,create_time,update_time
+    </sql>
+    <select id="test" resultType="java.lang.String">
+        select 1 from dual
+    </select>
+</mapper>
