@@ -10,9 +10,14 @@
  */
 package com.fruit.email.service;
 
+import com.fruit.email.dto.LogDto;
 import com.fruit.email.mapper.LogMapper;
+import com.fruit.email.util.JodaTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>类描述： 邮件推送日志Service<p>
@@ -25,7 +30,7 @@ import org.springframework.stereotype.Service;
  * @author 修改时间：2020-04-23 15:06:39 星期四
  * @author 修改备注：
  */
-@Service("com.fruit.email.service.LogService")
+@Service
 public class LogService {
 
     @Autowired
@@ -37,5 +42,31 @@ public class LogService {
 
     public String test() {
         return getMapper().test();
+    }
+
+    public void updateStatus(String msgId, Integer status) {
+        LogDto msgLog = new LogDto();
+        msgLog.setMsg_id(msgId);
+        msgLog.setStatus(status);
+        msgLog.setUpdate_time(new Date());
+        mapper.updateStatus(msgLog);
+    }
+
+    public LogDto selectByMsgId(String msgId) {
+        return mapper.selectByPrimaryKey(msgId);
+    }
+
+    public List<LogDto> selectTimeoutMsg() {
+        return mapper.selectTimeoutMsg();
+    }
+
+    public void updateTryCount(String msgId, Date tryTime) {
+        Date nextTryTime = JodaTimeUtil.plusMinutes(tryTime, 1);
+
+        LogDto msgLog = new LogDto();
+        msgLog.setMsg_id(msgId);
+        msgLog.setNext_try_time(nextTryTime);
+
+        mapper.updateTryCount(msgLog);
     }
 }

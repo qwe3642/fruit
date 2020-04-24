@@ -10,6 +10,10 @@
  */
 package com.fruit.email.mapper;
 
+import com.fruit.email.dto.LogDto;
+
+import java.util.List;
+
 /**
  * <p>项目名称：email<p>
  * <p>类名称：LogMapper<p>
@@ -24,4 +28,14 @@ package com.fruit.email.mapper;
 public interface LogMapper {
 
     String test();
+
+    void updateStatus(LogDto msgLog);
+
+    LogDto selectByPrimaryKey(String msgId);
+
+    List<LogDto> selectTimeoutMsg();
+
+    void updateTryCount(LogDto msgLog);
+
+    void insert(LogDto msgLog);
 }

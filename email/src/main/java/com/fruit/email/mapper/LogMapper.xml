@@ -29,7 +29,33 @@
     <sql id="Base_Column_List">
         msg_id,msg,exchange,routing_key,status,try_count,next_try_time,create_time,update_time
     </sql>
-    <select id="test" resultType="java.lang.String">
-        select 1 from dual
+
+    <insert id="insert" parameterType="com.fruit.email.dto.LogDto">
+        INSERT INTO msg_log(msg_id, msg, exchange, routing_key, status, try_count, next_try_time, create_time, update_time)
+        VALUES (#{msg_id}, #{msg}, #{exchange}, #{routing_key}, #{status}, #{try_count}, #{next_try_time}, #{create_time}, #{update_time})
+    </insert>
+
+    <update id="updateStatus" parameterType="com.fruit.email.dto.LogDto">
+        update msg_log set status = #{status}, update_time = now()
+        where msg_id = #{msg_id}
+    </update>
+
+    <select id="selectTimeoutMsg" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from msg_log
+        where status = 0
+        and next_try_time &lt;= now()
+    </select>
+
+    <update id="updateTryCount" parameterType="com.fruit.email.dto.LogDto">
+        update msg_log set try_count = try_count + 1, next_try_time = #{nextTryTime}, update_time = now()
+        where msg_id = #{msg_id}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from msg_log
+        where msg_id = #{msg_id,jdbcType=VARCHAR}
     </select>
 </mapper>
