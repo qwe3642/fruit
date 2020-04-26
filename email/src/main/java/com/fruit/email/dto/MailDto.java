@@ -1,16 +1,28 @@
 package com.fruit.email.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.apache.ibatis.annotations.ConstructorArgs;
+
 import java.util.List;
 
 /**
  * 邮件dto
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MailDto {
     private String id;
 
     private String code;
 
     private String name;
+
+    private String title;
 
     private String nr;
 
@@ -20,59 +32,4 @@ public class MailDto {
 
     private List<MailSjrDto> sjrDtoList;
 
-    public List<MailCsrDto> getCsrDtoList() {
-        return csrDtoList;
-    }
-
-    public void setCsrDtoList(List<MailCsrDto> csrDtoList) {
-        this.csrDtoList = csrDtoList;
-    }
-
-    public List<MailSjrDto> getSjrDtoList() {
-        return sjrDtoList;
-    }
-
-    public void setSjrDtoList(List<MailSjrDto> sjrDtoList) {
-        this.sjrDtoList = sjrDtoList;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNr() {
-        return nr;
-    }
-
-    public void setNr(String nr) {
-        this.nr = nr;
-    }
-
-    public String getCs() {
-        return cs;
-    }
-
-    public void setCs(String cs) {
-        this.cs = cs;
-    }
 }
