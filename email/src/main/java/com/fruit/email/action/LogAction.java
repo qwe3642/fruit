@@ -11,11 +11,14 @@
 package com.fruit.email.action;
 
 import com.fruit.email.dto.LogDto;
+import com.fruit.email.dto.ServerResponse;
 import com.fruit.email.service.LogService;
+import com.fruit.email.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +42,9 @@ public class LogAction {
     // Servrice start
     @Autowired(required = false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
     private LogService logService;
+
+    @Autowired
+    private MailService mailService;
 
     /**
      * @param @param  model
@@ -66,8 +72,8 @@ public class LogAction {
      * @Description: 测试
      */
     @GetMapping("/test")
-    public String test(LogDto dto, HttpServletRequest request) throws Exception {
-        return logService.test();
+    public ServerResponse test(@RequestParam(value = "mailId")String mailId, HttpServletRequest request) throws Exception {
+        return mailService.sendMaill(mailId);
     }
 
 }

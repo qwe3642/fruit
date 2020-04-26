@@ -1,6 +1,15 @@
 spring:
   profiles:
     active: dev
+  redis:
+    host: localhost
+    port: 6379
+    jedis:
+      pool:
+        max-wait: 30000
+        max-active: 100
+        max-idle: 20
+        min-idle: 0
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/nike_db?useUnicode=true&useSSL=true&verifyServerCertificate=false&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
@@ -22,9 +31,9 @@ spring:
         prefetch: 100
   mail:
     host: smtp.qq.com
-    username:
-    password:
-    from:
+    username: 364297143@qq.com
+    password: xooysfifwrlzbijd
+    from: 364297143@qq.com
     properties:
       mail:
         smtp:

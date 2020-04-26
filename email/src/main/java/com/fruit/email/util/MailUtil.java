@@ -25,12 +25,15 @@ public class MailUtil {
      */
     public boolean send(Mail mail) {
         String to = mail.getTo();// 目标邮箱
+        String[] toArray = mail.getToArray();
+        String[] csArray = mail.getCsrArray();
         String title = mail.getTitle();// 邮件标题
         String content = mail.getContent();// 邮件正文
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
-        message.setTo(to);
+        message.setTo(toArray);
+        message.setCc(csArray);
         message.setSubject(title);
         message.setText(content);
 
